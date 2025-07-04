@@ -1,3 +1,4 @@
+// backend/db/connection.js
 const sql = require('mssql');
 require('dotenv').config();
 
@@ -15,4 +16,4 @@ const config = {
 const pool = new sql.ConnectionPool(config);
 const poolConnect = pool.connect();
 
-module.exports = { sql, poolConnect, pool };
+module.exports = { sql, pool, poolConnect };
