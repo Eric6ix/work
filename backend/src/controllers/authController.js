@@ -193,6 +193,96 @@ const me = async (req, res) => {
 };
 
 
-module.exports = { register, login, me, getUsers };
+const updateUser = async (req, res) => {
+  await poolConnect;
+
+  const userId = parseInt(req.params.id); // ID do usuário a ser editado
+  const {
+    name,
+    state,
+    city,
+    password,
+    password_confirmation,
+    department_id,
+    position_id
+  } = req.body;
+
+  if (!name || !state || !city || !password || !password_confirmation || !department_id || !position_id) {
+    return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
+  }
+  if (password !== password_confirmation) {
+    return res.status(400).json({ message: 'As senhas não coincidem.' });
+  }
+
+
+  try {
+    // Verifica se o usuário existe
+    const existingUser = await pool.request()
+      .input('id', userId)
+      .query('SELECT * FROM Users WHERE id = @id');
+
+    if (existingUser.recordset.length === 0) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+
+    // Atualiza os dados
+    await pool.request()
+      .input('id', userId)
+      .input('name', name)
+      .input('state', state)
+      .input('city', city)
+      .input('password', await bcrypt.hash(password, 10)) // Hash da nova senha
+      .input('department_id', department_id)
+      .input('position_id', position_id)
+      .query(`
+        UPDATE Users
+        SET name = @name,
+        state = @state,
+        city = @city,
+        password = @password,
+        department_id = @department_id,
+            position_id = @position_id
+        WHERE id = @id
+      `);
+
+    res.status(200).json({ message: 'Usuário atualizado com sucesso!' });
+  } catch (err) {
+    console.error('Erro ao atualizar usuário:', err);
+    res.status(500).json({ message: 'Erro interno no servidor.' });
+  }
+};
+
+
+const deleteUserByEmail = async (req, res) => {
+  await poolConnect;
+
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: 'E-mail é obrigatório para exclusão.' });
+  }
+
+  try {
+    const result = await pool.request()
+      .input('email', email)
+      .query('SELECT * FROM Users WHERE email = @email');
+
+    if (result.recordset.length === 0) {
+      return res.status(404).json({ message: 'Usuário com esse e-mail não foi encontrado.' });
+    }
+
+    await pool.request()
+      .input('email', email)
+      .query('DELETE FROM Users WHERE email = @email');
+
+    res.status(200).json({ message: `Usuário com email ${email} foi deletado com sucesso.` });
+  } catch (err) {
+    console.error('Erro ao deletar usuário:', err);
+    res.status(500).json({ message: 'Erro interno no servidor.' });
+  }
+};
+
+
+module.exports = { register, login, me, getUsers, updateUser, deleteUserByEmail };
 
 
