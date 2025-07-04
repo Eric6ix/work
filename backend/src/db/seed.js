@@ -99,12 +99,32 @@ async function seed() {
 
     console.log('✅ Mensagens inseridas.');
 
+        // Inserir destinatários para mensagens (2 usuários aleatórios por mensagem)
+    for (let i = 1; i <= 10; i++) {
+      const user1 = Math.floor(Math.random() * 10) + 1;
+      let user2;
+      do {
+        user2 = Math.floor(Math.random() * 10) + 1;
+      } while (user2 === user1); // evita repetir
+
+      await pool.request().query(`
+        INSERT INTO MessageRecipients (message_id, user_id)
+        VALUES
+          (${i}, ${user1}),
+          (${i}, ${user2});
+      `);
+    }
+
+    console.log('✅ Mensagens associadas a usuários (MessageRecipients inseridos).');
+
     console.log('🎉 Seed finalizada com sucesso!');
+
     process.exit(0);
   } catch (err) {
     console.error('Erro ao rodar a seed:', err);
     process.exit(1);
   }
+  
 }
 
 seed();

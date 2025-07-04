@@ -8,10 +8,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
+
+// teste de api
+app.get('/teste', (req, res) => {
   res.send('API funcionando!');
 });
 
+
+// teste de bando de dados SSMS
 app.get('/test-db', async (req, res) => {
   try {
     await poolConnect; // garante que a conexão foi estabelecida
@@ -23,4 +27,12 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
+
+
+// rotas de entrada inicial
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
+
+
+// rotas protegidas "apenas user cadastrados podem acessar"
 module.exports = app;
