@@ -1,6 +1,7 @@
 // backend/controllers/authController.js
 const bcrypt = require('bcrypt');
 const { pool, poolConnect } = require('../db/connection');
+const jwt = require('jsonwebtoken');
 
 
 
@@ -11,13 +12,15 @@ const register = async (req, res) => {
     name,
     email,
     password,
+    password_confirmation,
     state,
     city,
     department_id,
     position_id
   } = req.body;
 
-  if (!name || !email || !password || !state || !city || !department_id || !position_id) {
+
+  if (!name || !email ||  !password || !password_confirmation || !state || !city || !department_id || !position_id && password === password_confirmation) {
     return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
   }
 
@@ -54,7 +57,6 @@ const register = async (req, res) => {
 };
 
 
-const jwt = require('jsonwebtoken');
 
 const login = async (req, res) => {
   await poolConnect;
@@ -85,7 +87,7 @@ const login = async (req, res) => {
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET || 'chave_secreta', // coloque no .env depois!
-      { expiresIn: '2h' }
+      { expiresIn: '8h' } // Expira em 5 horas
     );
 
     res.status(200).json({

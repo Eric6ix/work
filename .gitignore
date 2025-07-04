@@ -7,7 +7,7 @@
 .env.development.local
 # Logs
 *.log
-
+*README.md
 
 
 # OS / IDE
