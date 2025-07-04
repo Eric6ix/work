@@ -2,6 +2,8 @@
 const bcrypt = require('bcrypt');
 const { pool, poolConnect } = require('../db/connection');
 
+
+
 const register = async (req, res) => {
   await poolConnect;
 
@@ -53,7 +55,6 @@ const register = async (req, res) => {
 
 
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
 
 const login = async (req, res) => {
   await poolConnect;
@@ -109,4 +110,3 @@ const login = async (req, res) => {
 module.exports = { register, login };
 
 
-module.exports = { register };
