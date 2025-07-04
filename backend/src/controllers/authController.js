@@ -84,11 +84,8 @@ const login = async (req, res) => {
       return res.status(401).json({ message: 'Senha incorreta.' });
     }
 
-    const token = jwt.sign(
-      { id: user.id, email: user.email },
-      process.env.JWT_SECRET || 'chave_secreta', // coloque no .env depois!
-      { expiresIn: '8h' } // Expira em 5 horas
-    );
+       const token = jwt.sign(
+      { id: user.id, email: user.email }, process.env.JWT_SECRET || 'chave_secreta', { expiresIn: '8h' });
 
     res.status(200).json({
       message: 'Login bem-sucedido!',
@@ -105,6 +102,57 @@ const login = async (req, res) => {
     });
   } catch (err) {
     console.error('Erro no login:', err);
+    res.status(500).json({ message: 'Erro interno no servidor.' });
+  }
+};
+
+
+const getUsers = async (req, res) => {
+  await poolConnect;
+
+  const userId = req.user.id; // vem do token via middleware verifyToken
+
+  try {
+    // Dados do usuário logado
+    const currentUserResult = await pool.request()
+      .input('id', userId)
+      .query(`
+        SELECT 
+          u.id,
+          u.name,
+          u.email,
+          u.state,
+          u.city,
+          d.name AS department_name,
+          p.name AS position_name
+        FROM Users u
+        JOIN Departments d ON u.department_id = d.id
+        JOIN Position p ON u.position_id = p.id
+        WHERE u.id = @id
+      `);
+
+    // Lista de todos os usuários
+    const allUsersResult = await pool.request().query(`
+      SELECT 
+        u.id,
+        u.name,
+        u.email,
+        u.state,
+        u.city,
+        d.name AS department_name,
+        p.name AS position_name
+      FROM Users u
+      JOIN Departments d ON u.department_id = d.id
+      JOIN Position p ON u.position_id = p.id
+    `);
+
+    res.status(200).json({
+      message: 'Usuário autenticado com sucesso.',
+      currentUser: currentUserResult.recordset[0],
+      allUsers: allUsersResult.recordset
+    });
+  } catch (err) {
+    console.error('Erro ao buscar usuários:', err);
     res.status(500).json({ message: 'Erro interno no servidor.' });
   }
 };
@@ -145,6 +193,6 @@ const me = async (req, res) => {
 };
 
 
-module.exports = { register, login, me };
+module.exports = { register, login, me, getUsers };
 
 
