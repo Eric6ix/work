@@ -20,9 +20,21 @@ const register = async (req, res) => {
   } = req.body;
 
 
-  if (!name || !email ||  !password || !password_confirmation || !state || !city || !department_id || !position_id && password === password_confirmation) {
-    return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
-  }
+ if (!name || !email || !password || !password_confirmation || !state || !city || !department_id || !position_id) {
+  return res.status(400).json({ message: 'Todos os campos são obrigatórios.' });
+}
+
+if (password !== password_confirmation) {
+  return res.status(400).json({ message: 'As senhas não coincidem.' });
+}
+
+if (password.length < 8) {
+  return res.status(400).json({ message: 'A senha senha precisa ser maior que 5 caractéres!' });
+}
+
+if (password.length > 10) {
+  return res.status(400).json({ message: 'A senha senha precisa ser menor que 10 caractéres!' });
+}
 
   try {
     const emailCheck = await pool
@@ -256,10 +268,10 @@ const updateUser = async (req, res) => {
 const deleteUserByEmail = async (req, res) => {
   await poolConnect;
 
-  const { email } = req.body;
+  const { email, email_confirmation } = req.body;
 
-  if (!email) {
-    return res.status(400).json({ message: 'E-mail é obrigatório para exclusão.' });
+  if (!email || !email_confirmation || email_confirmation !== email) {
+    return res.status(400).json({ message: 'E-mail é obrigatório para exclusão e devem ser iguais' });
   }
 
   try {
