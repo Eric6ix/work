@@ -109,6 +109,42 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+
+const me = async (req, res) => {
+  await poolConnect;
+
+  const userId = req.user.id;
+
+  try {
+    const result = await pool.request()
+      .input('id', userId)
+      .query(`
+        SELECT 
+          u.id,
+          u.name,
+          u.email,
+          u.state,
+          u.city,
+          d.name AS department_name,
+          p.name AS position_name
+        FROM Users u
+        JOIN Departments d ON u.department_id = d.id
+        JOIN Position p ON u.position_id = p.id
+        WHERE u.id = @id
+      `);
+
+    if (result.recordset.length === 0) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+
+    res.json(result.recordset[0]);
+  } catch (err) {
+    console.error('Erro ao buscar dados do usuário logado:', err);
+    res.status(500).json({ message: 'Erro interno no servidor.' });
+  }
+};
+
+
+module.exports = { register, login, me };
 
 
