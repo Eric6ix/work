@@ -3,7 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const { poolConnect, pool } = require('./db/connection');
 const authRoutes = require('./routes/authRoutes');
-const departmentsRoutes = require('./routes/departmentsRoutes');
+const departmentsRoutes = require('./routes/DepartmentsRoutes');
+const positionRoutes = require('./routes/positionRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -37,4 +38,5 @@ app.use('/api/auth', authRoutes);
 
 // rotas protegidas "apenas user cadastrados podem acessar"
 app.use('/api/departments', departmentsRoutes);
+app.use('/api/positions', positionRoutes);
 module.exports = app;

@@ -1,8 +1,8 @@
 // backend/routes/DepartmentsRoutes.js
 const express = require('express');
 const router = express.Router();
-const { deleteDepartmentsByID, getDepartments, registerDepartment, updateDepartments } = require('../controllers/departmentsController');
 const verifyToken = require('../middlewares/verifyToken');
+const { deleteDepartmentsByID, getDepartments, registerDepartment, updateDepartments } = require('../controllers/departmentsController');
 
 
 // Rotas verificadas para o usuário autenticado
