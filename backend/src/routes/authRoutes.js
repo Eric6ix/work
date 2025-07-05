@@ -9,7 +9,7 @@ router.post('/', login);
 
 
 // Rotas verificadas para o usuário autenticado
-router.get('/me',verifyToken, me);
+router.get('deshbord/me',verifyToken, me);
 router.get('/dashbord',verifyToken, getUsers);
 router.put('/dashbord/editUser/:id',verifyToken, updateUser);
 router.delete('/dashbord/deletUser',verifyToken, deleteUserByEmail);
