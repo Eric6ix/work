@@ -35,9 +35,13 @@ const registerDepartment = async (req, res) => {
 
 
 
-const getDepartments = async (res) => {
+const getDepartments = async (req, res) => {
   await poolConnect;
+  const userId = req.user.id;
 
+  if (!userId) {
+    return res.status(400).json({ message: 'Obrigatório o login !' });
+  }
   try {
     const allDepartmentsResult = await pool.request().query(`
       SELECT id, name FROM Departments
@@ -45,7 +49,7 @@ const getDepartments = async (res) => {
 
     res.status(200).json({
       message: 'Departamentos listados com sucesso.',
-      allDepartments: allDepartmentsResult.recordset
+      allDepartments: allDepartmentsResult.recordset,
     });
   } catch (err) {
     console.error('Erro ao buscar departamentos:', err);

@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const { poolConnect, pool } = require('./db/connection');
 const authRoutes = require('./routes/authRoutes');
-const departmentsRoutes = require('./routes/DepartmentsRoutes');
+const departmentsRoutes = require('./routes/departmentsRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -12,7 +12,7 @@ app.use(express.json());
 
 
 // teste de api
-app.get('/teste', (req, res) => {
+app.get('/teste', (res) => {
   res.send('API funcionando!');
 });
 
