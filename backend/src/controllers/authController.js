@@ -29,7 +29,7 @@ if (password !== password_confirmation) {
 }
 
 if (password.length < 8) {
-  return res.status(400).json({ message: 'A senha senha precisa ser maior que 5 caractéres!' });
+  return res.status(400).json({ message: 'A senha senha precisa ser maior que 7 caractéres!' });
 }
 
 if (password.length > 10) {
@@ -294,7 +294,63 @@ const deleteUserByEmail = async (req, res) => {
   }
 };
 
+// GET http://localhost:3001/api/user?id=5&email=teste@email.comconst 
+getUserByIdOrEmail = async (req, res) => {
+  await poolConnect;
 
-module.exports = { register, login, me, getUsers, updateUser, deleteUserByEmail };
+  const { id, email } = req.query;
+
+  try {
+    let result;
+
+    const request = pool.request();
+
+    if (id) {
+      request.input('id', parseInt(id));
+      result = await request.query(`
+        SELECT 
+          u.id,
+          u.name,
+          u.email,
+          u.state,
+          u.city,
+          d.name AS department_name,
+          p.name AS position_name
+        FROM Users u
+        JOIN Departments d ON u.department_id = d.id
+        JOIN Position p ON u.position_id = p.id
+        WHERE u.id = @id
+      `);
+    } else {
+      request.input('email', email);
+      result = await request.query(`
+        SELECT 
+          u.id,
+          u.name,
+          u.email,
+          u.state,
+          u.city,
+          d.name AS department_name,
+          p.name AS position_name
+        FROM Users u
+        JOIN Departments d ON u.department_id = d.id
+        JOIN Position p ON u.position_id = p.id
+        WHERE u.email = @email
+      `);
+    }
+
+    if (result.recordset.length === 0) {
+      return res.status(404).json({ message: 'Usuário não encontrado.' });
+    }
+
+    res.status(200).json({ user: result.recordset[0] });
+  } catch (err) {
+    console.error('Erro ao buscar usuário:', err);
+    res.status(500).json({ message: 'Erro interno no servidor.' });
+  }
+
+}
+
+module.exports = { register, login, me, getUsers, updateUser, deleteUserByEmail, getUserByIdOrEmail };
 
 
