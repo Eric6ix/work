@@ -1,9 +1,12 @@
 {
   "dependencies": {
-    "axios": "^1.10.0"
-  }
+    "axios": "^1.10.0",
+    "framer-motion": "^12.23.0",
+    "jwt-decode": "^4.0.0",
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.6.3"
+  },
   "scripts": {
-    "start": "nodemon src/App.js",
+    "start": "nodemon src/App.js"
   }
 }
-    
