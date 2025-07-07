@@ -12,7 +12,7 @@ const verifyToken = (req, res, next) => {
   const token = authHeader.split(' ')[1];
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'p5wd_5124');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || '123123');
     req.user = decoded; // salva o payload do token no req.user
     next();
   } catch (error) {

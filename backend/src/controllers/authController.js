@@ -295,7 +295,7 @@ const deleteUserByEmail = async (req, res) => {
 };
 
 // GET http://localhost:3001/api/user?id=5&email=teste@email.comconst 
-getUserByIdOrEmail = async (req, res) => {
+const getUserByIdOrEmail = async (req, res) => {
   await poolConnect;
 
   const { id, email } = req.query;

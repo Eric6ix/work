@@ -1,6 +1,7 @@
 // middlewares/checkRole.js
 const jwt = require('jsonwebtoken');
 const { pool, poolConnect } = require('../db/connection');
+
 require('dotenv').config();
 
 const checkRole = (allowedDepartments = [], allowedPositions = []) => {
@@ -8,9 +9,9 @@ const checkRole = (allowedDepartments = [], allowedPositions = []) => {
     await poolConnect;
 
     const token = req.headers.authorization?.split(' ')[1];
-
-    if (!token || isNaN(token)) {
-      return res.status(401).json({ message: 'Token não fornecido', message2: 'Token não fornecido ou inválido' });
+    
+    if (!token) {
+      return res.status(401).json({ message: 'Token não fornecido ou inválido' });
     }
 
     try {
