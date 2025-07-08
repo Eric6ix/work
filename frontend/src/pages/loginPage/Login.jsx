@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import Navbar from '../components/navbar/Navbar';
+import Navbar from '../../components/navbarComponent';
 import axios from 'axios';
-import '../components/navbar/Navbar'; // Importando o CSS do Navbar
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -44,7 +43,7 @@ export default function Login() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1.2 }}
         >
-          <img src="/f-150.png" alt="Ford F-150" className="car-image" />
+          <img src="/img/f-150.png" alt="F-150" className="image-hover-animate" />
         </motion.article>
 
         <motion.aside
@@ -53,7 +52,7 @@ export default function Login() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1.2 }}
         >
-          <img src="/coracao_desbrava.png" alt="Logo" className="logo-heart" />
+          <img src="/img/coracao_desbrava.png" alt="Logo" className="logo-heart" />
           <h2>Bem-vindo!</h2>
           <form onSubmit={handleLogin}>
             <input

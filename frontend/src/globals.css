@@ -1,0 +1,122 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Cor de fundo do body */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgb(153, 187, 255);
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* Botão principal (botãoMain) */
+.buttonMain {
+  background-color: #3399ff;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.buttonMain:hover {
+  background-color: #0073e6;
+  transform: scale(0.97);
+}
+
+.buttonMain:active {
+  transform: scale(0.95);
+  transition: all 0.1s ease-out;
+}
+
+/* Estilo dos inputs */
+input {
+  background-color: #e6e6e6;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  outline: none;
+  transition: background-color 0.2s ease;
+  width: 100%;
+}
+
+input:hover {
+  background-color: #fff;
+}
+
+/* Navbar com efeito de vidro */
+.navbar-glass {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: slideDown 0.6s ease forwards;
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+/* Link da navbar */
+.navbar-glass a {
+  text-decoration: none;
+  margin: 0 12px;
+  color: white;
+  transition: all 0.2s ease-in-out;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.navbar-glass a:hover {
+  color: #afffff;
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* Imagem com animação hover */
+.image-hover-animate {
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-hover-animate:hover {
+  transform: scale(1.05) translateY(-8px);
+}
+
+/* Animações */
+@keyframes slideDown {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
