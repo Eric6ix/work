@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/navbar/Navbar';
 import axios from 'axios';
-import '../components/navbar/Navbar.css'; // Importando o CSS do Navbar
-import '../styles/Login.css'; // Importando o CSS do Login
+import '../components/navbar/Navbar'; // Importando o CSS do Navbar
 
 export default function Login() {
   const [email, setEmail] = useState('');

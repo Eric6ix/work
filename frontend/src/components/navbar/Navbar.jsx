@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import '../navbar/Navbar.css'; // Importando o CSS do Navbar
 
 export default function Navbar() {
   return (
