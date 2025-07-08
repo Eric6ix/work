@@ -14,11 +14,6 @@ app.use(cors());
 app.use(express.json());
 
 
-// teste de api
-app.get('/teste', (res) => {
-  res.send('API funcionando!');
-});
-
 
 // teste de bando de dados SSMS
 app.get('/test-db', async (req, res) => {

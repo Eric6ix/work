@@ -1,0 +1,111 @@
+/* Container principal */
+.login-container {
+  display: flex;
+  height: 100vh;
+  background-color:  rgb(34, 34, 43);
+  overflow: hidden;
+}
+
+/* Coluna da imagem */
+.login-image {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideInLeft 0.8s ease-in-out forwards;
+  opacity: 0;
+}
+
+.login-image img {
+  width: 100%;
+  height: auto;
+  max-width: 600px;
+  transition: transform 0.4s ease;
+}
+
+.login-image img:hover {
+  transform: scale(1.03) translateY(-5px);
+}
+
+/* Coluna do formulário */
+.login-form {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem;
+  animation: slideInRight 0.8s ease-in-out forwards;
+  opacity: 0;
+}
+
+.login-form h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color:#fff;
+  text-align: center;
+}
+
+.login-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form input {
+  background-color: #fff;
+  border: none;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.login-form input:hover {
+  background-color: #e6e6e6;
+}
+
+/* Botão principal (botaoMain) */
+.botaoMain {
+  background-color: #3399ff;
+  color: white;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.25s ease-in-out;
+}
+
+.botaoMain:hover {
+  background-color: #0073e6;
+  transform: scale(0.98);
+}
+
+.botaoMain:active {
+  transform: scale(0.94);
+  transition-duration: 0.15s;
+}
+
+/* Animações de entrada */
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}
