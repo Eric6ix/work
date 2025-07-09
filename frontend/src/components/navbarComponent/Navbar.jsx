@@ -21,7 +21,9 @@ const Navbar = () => {
         <li><a href="#services">Serviços</a></li>
         <li><a href="#about">Sobre</a></li>
         <li><a href="#contact">Suporte</a></li>
-        <li><a href="/register" className="btn-create">Criar conta</a></li>
+        <li><a href="#contact">Cargo</a></li>
+        <li><a href="#contact">Departamento</a></li>
+        <li><a href="#Mensagem" className="btn-create">Mensagens</a></li>
       </ul>
     </header>
   );

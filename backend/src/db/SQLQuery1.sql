@@ -40,6 +40,9 @@ CREATE TABLE Messages (
     id INT PRIMARY KEY IDENTITY(1,1),
     title NVARCHAR(100) NOT NULL,
     content TEXT NOT NULL,
+    created_by INT,
+    FK_Messages_Users INT NOT NULL,
+    FOREIGN KEY (created_by) REFERENCES User(id)
     created_at DATETIME DEFAULT GETDATE()
 );
 
@@ -50,6 +53,8 @@ CREATE TABLE MessageRecipients (
     FOREIGN KEY (message_id) REFERENCES Messages(id),
     FOREIGN KEY (user_id) REFERENCES Users(id)
 );
+
+
 
 
 DB_USER=user_developer

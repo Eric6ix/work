@@ -41,7 +41,9 @@ main{
   margin: 0;
   font-size: 2.5rem;
   color: #fff;
+ 
 }
+
 
 .h2-box span {
   color: rgb(201, 22, 22);
@@ -61,7 +63,7 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 15px;
   margin-top: 20px;
   width: 100%;
   max-width: 380px;
@@ -69,11 +71,12 @@ form {
 
 form input[type="email"],
 form input[type="password"] {
-  padding: 15px;
-  border-radius: 20px;
-  border: 2px solid rgb(201, 22, 22);
+  padding: 15px 220px 6px 10px;
+  border-radius: 15px;
+  border: 2px solid rgb(255, 0, 0);
   background-color: white;
   transition: background-color 0.3s ease;
+  direction: none;
 }
 
 form input[type="email"]:hover,
@@ -85,16 +88,17 @@ form input[type="password"]:hover {
   background-color: rgb(201, 22, 22);
   color: white;
   border: none;
-  padding: 15px 200px;
+  padding: 10px 100px;
   border-radius: 20px;
   cursor: pointer;
   transition: 0.5s all ease;
   margin-top: 30px;
-  transition: transform 0.2s ease, background-color 0.3s ease;
+  transition: transform 0.9s ease, background-color 0.10s ease;
 }
 
 .btn-send:hover {
-  background-color: rgb(181, 0, 0);
+  background-color: rgb(43, 171, 17);
+  color: #000000;
   transform: scale(0.97);
 }
 
@@ -115,7 +119,7 @@ form input[type="password"]:hover {
 }
 
 #slide-article img {
-  max-width: 50%;
+  max-width: 80%;
   height: auto;
   transition: transform 0.4s ease;
 }
@@ -155,15 +159,21 @@ form input[type="password"]:hover {
 @media (max-width: 768px) {
   .login-main {
     flex-direction: column-reverse;
-    padding: 20px;
+    padding-right: 100px;
   }
 
   #slide-aside,
   #slide-article {
     width: 100%;
     text-align: center;
+    & img{
+      display: none;
+    }
   }
 
+  form{
+    margin-left: 10px;
+  }
   #slide-article img {
     max-width: 80%;
     margin: 0 auto;

@@ -1,12 +1,19 @@
+import Navbar from "../../components/navbarComponent";
+import "../../globals.css"
+
 export default function Dashboard() {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
-    <div>
-      <h2>Bem-vindo, {user.name}!</h2>
-      <p>Email: {user.email}</p>
-      <p>Departamento ID: {user.department_id}</p>
-      <p>Cargo ID: {user.position_id}</p>
-    </div>
+    <>
+      <Navbar />
+
+      <div>
+        <h2>Bem-vindo, Eric!</h2>
+        <p>Email: 1@1.com</p>
+        <p>Departamento ID: 1</p>
+        <p>Cargo ID: Dev</p>
+      </div>
+    </>
   );
 }

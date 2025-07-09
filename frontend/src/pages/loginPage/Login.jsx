@@ -1,7 +1,6 @@
 // src/pages/loginPage/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../../components/navbarComponent';
 import axios from 'axios';
 import './loginStyle.css';
 
@@ -29,8 +28,7 @@ const Login = () => {
   };
 
   return (
-    <>
-      <Navbar />
+   
       <main className="login-container">
         <aside id="slide-aside" className="login-aside">
           <div className="h2-box">
@@ -63,7 +61,6 @@ const Login = () => {
           <img src="img/f-150.png" alt="F-150" />
         </article>
       </main>
-    </>
   );
 };
 

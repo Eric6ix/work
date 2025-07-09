@@ -50,7 +50,7 @@
 }
 
 .navbar-links a:hover {
-  color: #0a7113;
+  color: #ffaeae;
   cursor: pointer;
   transform: scale(1.1);
 }
@@ -68,4 +68,5 @@
   color: rgb(63, 195, 58);
   border-color: rgb(155, 226, 152);
   transform: scale(1.08);
+
 }
