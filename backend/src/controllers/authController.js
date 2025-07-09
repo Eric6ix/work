@@ -97,7 +97,7 @@ const login = async (req, res) => {
     }
 
        const token = jwt.sign(
-      { id: user.id, email: user.email }, process.env.JWT_SECRET || 'p5wd_5124', { expiresIn: '8h' });
+      { id: user.id, email: user.email }, process.env.JWT_SECRET || 'p5wd_5124', { expiresIn: '30d' });
 
     res.status(200).json({
       message: 'Login bem-sucedido!',

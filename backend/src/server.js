@@ -36,5 +36,5 @@ app.use('/api/auth', authRoutes);
 // rotas protegidas "apenas user cadastrados podem acessar"
 app.use('/api/departments', departmentsRoutes);
 app.use('/api/positions', positionRoutes);
-app.use('/api/messege', MessagesRoutes);
+app.use('/api/messages', MessagesRoutes);
 module.exports = app;
