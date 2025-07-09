@@ -1,30 +1,30 @@
-import { useState } from 'react';
+// src/pages/loginPage/Login.jsx
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbarComponent';
-import api from '../../services/api';
-import '../../globals.css'; // seu estilo
+import axios from 'axios';
 import './loginStyle.css';
 
-
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await api.post('/auth/', { email, password });
-      console.log('Login bem-sucedido:', response.data);
-      // salvar token no localStorage
-      localStorage.setItem('token', response.data.token);
+      const response = await axios.post('http://localhost:3001/api/auth/', {
+        email,
+        password,
+      });
 
-      // redirecionar para dashboard
+      localStorage.setItem('token', response.data.token);
+      alert('Login realizado com sucesso!');
       navigate('/dashboard');
-    } catch (error) {
-      console.error('Erro no login:', error);
-      alert('Falha no login. Verifique suas credenciais.');
+    } catch (err) {
+      console.error('Erro ao fazer login:', err);
+      alert('Credenciais inválidas');
     }
   };
 
@@ -32,12 +32,14 @@ const Login = () => {
     <>
       <Navbar />
       <main className="login-container">
-        <article className="login-image">
-          <img src="/img/f-150.png" alt="F-150" />
-        </article>
-
-        <aside className="login-form">
-          <h2>Bem-vindo!</h2>
+        <aside id="slide-aside" className="login-aside">
+          <div className="h2-box">
+            <h2>Bem-vindo à</h2>
+            <h2><span>Disbrava Ford!</span></h2>
+          </div>
+          <p>
+            Bem-vindo ao portal da Disbrava! Faça login para acessar as funcionalidades exclusivas do sistema.
+          </p>
           <form onSubmit={handleLogin}>
             <input
               type="email"
@@ -46,7 +48,6 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-
             <input
               type="password"
               placeholder="Senha"
@@ -54,10 +55,13 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-
-            <button className="botaoMain" type="submit">Entrar</button>
+            <button type="submit" className="btn-send">Entrar</button>
           </form>
         </aside>
+
+        <article id="slide-article" className="login-article">
+          <img src="img/f-150.png" alt="F-150" />
+        </article>
       </main>
     </>
   );

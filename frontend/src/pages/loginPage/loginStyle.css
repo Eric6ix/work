@@ -1,111 +1,171 @@
-/* Container principal */
-.login-container {
-  display: flex;
-  height: 100vh;
-  background-color:  rgb(34, 34, 43);
-  overflow: hidden;
+/* Tela inteira */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: rgb(35, 35, 35);
+  overflow-x: hidden;
 }
 
-/* Coluna da imagem */
-.login-image {
-  flex: 1;
+main{
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  animation: slideInLeft 0.8s ease-in-out forwards;
-  opacity: 0;
-}
-
-.login-image img {
   width: 100%;
-  height: auto;
-  max-width: 600px;
-  transition: transform 0.4s ease;
+  height: 70vh;
 }
 
-.login-image img:hover {
-  transform: scale(1.03) translateY(-5px);
+/* Container principal */
+.login-main {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  flex-wrap: nowrap;
+  gap: 40px;
 }
 
-/* Coluna do formulário */
-.login-form {
+/* Aside (formulário e texto) */
+#slide-aside {
   flex: 1;
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 3rem;
-  animation: slideInRight 0.8s ease-in-out forwards;
+  max-width: 400px;
+  animation: slideInRight 0.7s ease forwards;
   opacity: 0;
+  padding: 30px 0px 0px 40px;
 }
 
-.login-form h2 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color:#fff;
-  text-align: center;
+.h2-box h2 {
+  margin: 0;
+  font-size: 2.5rem;
+  color: #fff;
 }
 
-.login-form form {
+.h2-box span {
+  color: rgb(201, 22, 22);
+  height: 300px;
+  width: 200px;
+}
+
+#slide-aside p {
+  font-size: 1rem;
+  color: #fff;
+  margin: 20px 0;
+  max-width: 400px;
+}
+
+/* Formulário */
+form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 380px;
 }
 
-.login-form input {
-  background-color: #fff;
-  border: none;
-  padding: 0.8rem 1rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  transition: background-color 0.3s;
+form input[type="email"],
+form input[type="password"] {
+  padding: 15px;
+  border-radius: 20px;
+  border: 2px solid rgb(201, 22, 22);
+  background-color: white;
+  transition: background-color 0.3s ease;
 }
 
-.login-form input:hover {
+form input[type="email"]:hover,
+form input[type="password"]:hover {
   background-color: #e6e6e6;
 }
 
-/* Botão principal (botaoMain) */
-.botaoMain {
-  background-color: #3399ff;
+.btn-send {
+  background-color: rgb(201, 22, 22);
   color: white;
   border: none;
-  padding: 0.9rem;
-  border-radius: 10px;
+  padding: 15px 200px;
+  border-radius: 20px;
   cursor: pointer;
-  font-weight: bold;
-  transition: all 0.25s ease-in-out;
+  transition: 0.5s all ease;
+  margin-top: 30px;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-.botaoMain:hover {
-  background-color: #0073e6;
-  transform: scale(0.98);
+.btn-send:hover {
+  background-color: rgb(181, 0, 0);
+  transform: scale(0.97);
 }
 
-.botaoMain:active {
+.btn-send:active {
   transform: scale(0.94);
-  transition-duration: 0.15s;
 }
 
-/* Animações de entrada */
-@keyframes slideInLeft {
+/* Article (imagem do carro) */
+#slide-article {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: slideInLeft 0.7s ease forwards;
+  opacity: 0;
+  width: 100%;
+  max-width: 100vh;
+}
+
+#slide-article img {
+  max-width: 50%;
+  height: auto;
+  transition: transform 0.4s ease;
+}
+
+#slide-article img:hover {
+  transform: scale(1.05) translateY(-10px);
+}
+
+#slide-article{
+  flex: 1;
+}
+
+/* Animações */
+@keyframes slideInRight {
   0% {
     transform: translateX(-100px);
     opacity: 0;
   }
   100% {
-    transform: translateX(0px);
+    transform: translateX(0);
     opacity: 1;
   }
 }
 
-@keyframes slideInRight {
+@keyframes slideInLeft {
   0% {
     transform: translateX(100px);
     opacity: 0;
   }
   100% {
-    transform: translateX(0px);
+    transform: translateX(0);
     opacity: 1;
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .login-main {
+    flex-direction: column-reverse;
+    padding: 20px;
+  }
+
+  #slide-aside,
+  #slide-article {
+    width: 100%;
+    text-align: center;
+  }
+
+  #slide-article img {
+    max-width: 80%;
+    margin: 0 auto;
   }
 }
