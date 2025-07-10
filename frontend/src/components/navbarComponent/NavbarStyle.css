@@ -47,26 +47,51 @@
   color: white;
   font-weight: 500;
   transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.navbar-links a:hover {
-  color: #ffaeae;
-  cursor: pointer;
-  transform: scale(1.1);
-}
-
-/* Botão criar conta com borda */
-.btn-create {
-  border: 2px solid rgb(201, 22, 22);
-  border-radius: 20px;
-  padding: 8px 18px;
   transition: all 0.4s ease;
 }
 
-.btn-create:hover {
+.navbar-links a:hover {
+  color: #000000;
+  background-color: #ffffff;
+  cursor: pointer;
+  transform: scale(1.1);
+  font-size: 16px;
+  border-radius: 20PX;
+  padding: 4px 10px 4px 10px;
+ box-shadow: 1px 1px 30px rgb(255, 255, 255);
+  
+}
+
+/* Botão criar conta com borda */
+.btn-message {
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 20px;
+  transition: all 0.4s ease;
+  padding: 4px 10px 4px 10px;
+
+}
+
+.btn-message:hover {
   background-color: white;
-  color: rgb(63, 195, 58);
-  border-color: rgb(155, 226, 152);
+  color: rgb(0, 0, 0);
+  border-color: rgb(9, 255, 0);
   transform: scale(1.08);
+  font-size: 16px;
+  padding: 8px 18px 8px 18px;
+ box-shadow: 1px 1px 30px rgb(9, 255, 0);
+}
+
+.logout-button{
+  border-radius: 20px;
+  padding: 4px 10px 4px 10px;
+  transition: all 0.4s ease;
+
+}
+
+.logout-button:hover{
+  background-color: rgb(255, 0, 0);
+   box-shadow: 1px 1px 30px rgb(255, 0, 0);
+padding: 13px 3px 13px 3px;
+  color: #fff;
 
 }

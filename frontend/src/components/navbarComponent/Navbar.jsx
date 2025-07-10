@@ -3,8 +3,13 @@ import React, { useEffect, useState } from 'react';
 import './NavbarStyle.css';
 
 const Navbar = () => {
-  const [show, setShow] = useState(false);
+    const [show, setShow] = useState(false);
 
+    const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+  
   useEffect(() => {
     // Delay para animação
     const timer = setTimeout(() => setShow(true), 500);
@@ -23,7 +28,8 @@ const Navbar = () => {
         <li><a href="#contact">Suporte</a></li>
         <li><a href="#contact">Cargo</a></li>
         <li><a href="#contact">Departamento</a></li>
-        <li><a href="#Mensagem" className="btn-create">Mensagens</a></li>
+        <li><button className="btn-message">Mensagem</button></li>
+        <li><button onClick={handleLogout} className="logout-button">Logout</button></li>
       </ul>
     </header>
   );
