@@ -42,7 +42,7 @@ CREATE TABLE Messages (
     content TEXT NOT NULL,
     created_by INT,
     FK_Messages_Users INT NOT NULL,
-    FOREIGN KEY (created_by) REFERENCES User(id)
+    FOREIGN KEY (created_by) REFERENCES User(id),
     created_at DATETIME DEFAULT GETDATE()
 );
 
@@ -51,7 +51,8 @@ CREATE TABLE MessageRecipients (
     message_id INT NOT NULL,
     user_id INT NOT NULL,
     FOREIGN KEY (message_id) REFERENCES Messages(id),
-    FOREIGN KEY (user_id) REFERENCES Users(id)
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    created_at DATETIME DEFAULT GETDATE()
 );
 
 
