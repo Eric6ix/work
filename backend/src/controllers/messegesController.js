@@ -1,8 +1,15 @@
-const { pool, poolConnect } = require("../db/connection");
-
-require("dotenv").config();
+const { pool, poolConnect } = require('../db/connection');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
+const fs = require('fs');
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
 
 const registerMessages = async (req, res) => {
   await poolConnect;
@@ -12,22 +19,23 @@ const registerMessages = async (req, res) => {
     content,
     position_id,
     department_id,
-    target_user_id,
+    target_user_id
+
   } = req.body;
 
   const createdBy = req.user.id;
 
   if (!title || title.length < 2) {
-    return res.status(400).json({ message: 'Título obrigatório (mín. 2 caracteres).' });
+    return res.status(400).json({ message: 'Título inválido.' });
   }
 
   if (!content || content.length < 5) {
-    return res.status(400).json({ message: 'Conteúdo obrigatório (mín. 5 caracteres).' });
+    return res.status(400).json({ message: 'Conteúdo inválido.' });
   }
 
   try {
-    // 1. Inserir mensagem
-    const result = await pool.request()
+    // 1. Salva mensagem
+    const messageResult = await pool.request()
       .input('title', title)
       .input('content', content)
       .input('created_by', createdBy)
@@ -37,17 +45,56 @@ const registerMessages = async (req, res) => {
         VALUES (@title, @content, @created_by)
       `);
 
-    const messageId = result.recordset[0].id;
-    let recipients = [];
+    const messageId = messageResult.recordset[0].id;
 
-    // 2. Determinar os destinatários
+    // 2. Processa arquivos (se houver)
+    const attachments = [];
+
+    if (req.files && Array.isArray(req.files)) {
+      for (const file of req.files) {
+        attachments.push({
+          filename: file.originalname,
+          content: fs.readFileSync(file.path)
+        });
+      }
+    }
+
+    // 3. Envio por target_user_id
     if (target_user_id) {
-      // Um destinatário específico
-      recipients = await pool.request()
+      // Busca email do usuário
+      const result = await pool.request()
         .input('user_id', target_user_id)
-        .query(`SELECT id, email FROM Users WHERE id = @user_id`);
-    } else if (position_id && department_id) {
-      // Filtrando por cargo e departamento
+        .query(`SELECT email FROM Users WHERE id = @user_id`);
+
+      if (result.recordset.length === 0) {
+        return res.status(404).json({ message: 'Usuário não encontrado.' });
+      }
+
+      const userEmail = result.recordset[0].email;
+
+      // Salva destinatário no banco
+      await pool.request()
+        .input('message_id', messageId)
+        .input('user_id', target_user_id)
+        .query(`
+          INSERT INTO MessageRecipients (message_id, user_id)
+          VALUES (@message_id, @user_id)
+        `);
+
+      // Envia email
+      await transporter.sendMail({
+        from: process.env.EMAIL_FROM,
+        to: userEmail,
+        subject: title,
+        text: content,
+        attachments
+      });
+
+      return res.status(201).json({ message: 'Mensagem enviada para o usuário específico com sucesso.' });
+    }
+
+    // 4. Envio por cargo e departamento
+    else if (position_id && department_id) {
       const users = await pool.request()
         .input('position_id', position_id)
         .input('department_id', department_id)
@@ -55,45 +102,47 @@ const registerMessages = async (req, res) => {
           SELECT id, email FROM Users
           WHERE position_id = @position_id AND department_id = @department_id
         `);
-      recipients = users.recordset;
-    } else {
-      return res.status(400).json({ message: 'Você deve informar o destinatário.' });
+
+      if (users.recordset.length === 0) {
+        return res.status(404).json({ message: 'Nenhum usuário encontrado com o cargo e departamento informados.' });
+      }
+
+      for (const user of users.recordset) {
+        // Salva no banco
+        await pool.request()
+          .input('message_id', messageId)
+          .input('user_id', user.id)
+          .query(`
+            INSERT INTO MessageRecipients (message_id, user_id)
+            VALUES (@message_id, @user_id)
+          `);
+
+        // Envia email
+        await transporter.sendMail({
+          from: process.env.EMAIL_FROM,
+          to: user.email,
+          subject: title,
+          text: content,
+          attachments
+        });
+      }
+
+      return res.status(201).json({ message: 'Mensagem enviada para os usuários do cargo/departamento.' });
     }
 
-    // // 3. Inserir na tabela MessageRecipients e enviar e-mail
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER, // Ex: developerdisbrava@gmail.com
-        pass: process.env.EMAIL_PASS, // Ex: pjuyumwcngkiepyp
-      },
-    });
-
-    for (const user of recipients) {
-      // Salvar relação da mensagem com o usuário
-      await pool.request()
-        .input('message_id', messageId)
-        .input('user_id', user.id)
-        .query(`
-          INSERT INTO MessageRecipients (message_id, user_id)
-          VALUES (@message_id, @user_id)
-        `);
-
-      // Enviar e-mail
-      await transporter.sendMail({
-        from: `"Disbrava Ford" <${process.env.EMAIL_USER}>`,
-        to: user.email,
-        subject: `[Nova Mensagem] ${title}`,
-        html: `<h3>${title}</h3><p>${content}</p>`,
-      });
+    // 5. Nenhum destinatário definido
+    else {
+      return res.status(400).json({ message: 'Destinatário(s) não especificado(s).' });
     }
 
-    res.status(201).json({ message: 'Mensagem registrada e enviada com sucesso.' });
-  } catch (error) {
-    console.error('Erro ao registrar mensagem:', error);
-    res.status(500).json({ message: 'Erro interno no servidor.' });
+  } catch (err) {
+    console.error('Erro ao registrar mensagem:', err);
+    return res.status(500).json({ message: 'Erro interno no servidor.' });
   }
 };
+
+module.exports = { registerMessages };
+
 
 
 

@@ -294,7 +294,7 @@ const deleteUserByEmail = async (req, res) => {
   }
 };
 
-// GET http://localhost:3001/api/user?id=5&email=teste@email.comconst 
+// GET http://localhost:3001/api/user?id=5&email=teste@email.comconst | A EXLUSÂO DE USERS FUNCIONA APENAS SE ELE NÂO TIVER NADA LIGADO A OUTRAS TABELAS
 const getUserByIdOrEmail = async (req, res) => {
   await poolConnect;
 

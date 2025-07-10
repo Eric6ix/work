@@ -1,7 +1,7 @@
 const { poolConnect, pool } = require("./connection");
 require("dotenv").config();
 
-const force = true; // Altere para false se não quiser dropar as tabelas
+const force = false; // Altere para false se não quiser dropar as tabelas
 
 async function seed() {
   try {
