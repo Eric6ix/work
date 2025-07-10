@@ -1,20 +1,24 @@
 // src/components/navbarComponent/Navbar.jsx
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './NavbarStyle.css';
 
 const Navbar = () => {
-    const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);
+  const navigate = useNavigate();
 
-    const handleLogout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
-  };
-  
   useEffect(() => {
     // Delay para animação
     const timer = setTimeout(() => setShow(true), 500);
     return () => clearTimeout(timer);
   }, []);
+
+
+   const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+  };
+
 
   return (
     <header className={`navbar ${show ? 'show' : ''}`}>
