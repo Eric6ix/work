@@ -64,6 +64,25 @@
   margin-right: 70px;
 }
 
+.buttonDH {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  color: gray;
+  min-width: 300px;
+  transition: all 1.5s ease;
+  font-size: 19px;
+}
+
+.buttonDH:hover{
+  box-shadow: 0px 5px 40px rgba(255, 255, 255, 0.253);
+  font-size: 20px;
+  color: #fff;
+}
+
+
 .placeholder {
   flex: 1;
   background-color: rgba(255, 255, 255, 0.05);
@@ -72,4 +91,5 @@
   text-align: center;
   color: gray;
   min-width: 300px;
+  cursor: not-allowed;
 }

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Navbar from "../../components/navbarComponent";
 import "./dashbordStyle.css";
 import "../../globals.css";
@@ -5,9 +6,22 @@ import { MessagesModal, SendMessageModal } from '../../components/modal';
 import { Link } from 'react-router-dom';
 
 
-const userRole = 'admin0'
-// const [showMessageModal, setShowMessageModal] = useState(false);
+const userPosition = "admin0"
 const Dashboard = () => {
+  const [userRole, setUserRole] = useState('');
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [showSendModal, setShowSendModal] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decoded = JSON.parse(atob(token.split('.')[1])); // cuidado com segurança
+      setUserRole(decoded.role);
+      }
+    }
+  )
+
+
   return (
     <>
       <Navbar />
@@ -17,7 +31,7 @@ const Dashboard = () => {
 
         {/* Cards de Resumo */}
 
-        {userRole === 'admin' && (     
+        {userPosition === 'admin' && (     
             <section className="dashboard-cards">
               <Link to="/users" className="card shadow card-button link-sem-decoracao">
                 <h2>🧑‍💼 Cargos</h2>
@@ -35,20 +49,16 @@ const Dashboard = () => {
           )
         }
 
-        {userRole === 'admin0' && (  
+        {userPosition === 'admin0' && (  
           <img id="slide-aside" src="img/ford-GT.png" alt="" />
          )}
           {/* Placeholder para gráficos ou tabelas */}
               
                 <section className="dashboard-visuals">
-                  <div className="placeholder">Mensagens recebidas</div>
-                  <div className="placeholder">Fazer envio de mensagen</div>
-                  <div className="placeholder">Mensagens recebidas</div>
-                  <div className="placeholder">Fazer envio de mensagen</div>
-                </section>
-              
-              
-        
+                  <button className="buttonDH" onClick={() => setShowMessageModal(true)}> 📥 Mensagens recebidas </button>
+                  <button className="buttonDH" onClick={() => setShowSendModal(true)}> 📤 Enviar mensagem </button>
+                  <div className="placeholder">Em breve...</div>
+                </section>     
       </main>
     </>
   );
