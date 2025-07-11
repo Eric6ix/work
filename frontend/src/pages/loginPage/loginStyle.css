@@ -93,13 +93,14 @@ form input[type="password"]:hover {
   cursor: pointer;
   transition: 0.5s all ease;
   margin-top: 30px;
-  transition: transform 0.9s ease, background-color 0.10s ease;
+  transition: color 3.6s ease, transform 3.6s ease;
+  transition: all 1.5s ease;
 }
 
 .btn-send:hover {
   background-color: rgb(43, 171, 17);
-  color: #000000;
   transform: scale(0.97);
+  box-shadow: 1px 1px 30px rgb(43, 171, 17);
 }
 
 .btn-send:active {

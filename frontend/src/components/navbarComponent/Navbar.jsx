@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NavbarStyle.css';
 
+
 const Navbar = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
@@ -27,12 +28,9 @@ const Navbar = () => {
       </div>
       <ul className="navbar-links">
         <li><a href="#home">Home</a></li>
-        <li><a href="#services">Serviços</a></li>
+        <li><a href="#services">Perfil</a></li>
         <li><a href="#about">Sobre</a></li>
         <li><a href="#contact">Suporte</a></li>
-        <li><a href="#contact">Cargo</a></li>
-        <li><a href="#contact">Departamento</a></li>
-        <li><button className="btn-message">Mensagem</button></li>
         <li><button onClick={handleLogout} className="logout-button">Logout</button></li>
       </ul>
     </header>

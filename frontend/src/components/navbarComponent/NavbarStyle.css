@@ -63,7 +63,7 @@
 }
 
 /* Botão criar conta com borda */
-.btn-message {
+.btn-message, .btn-recebidas {
   border: 2px solid rgb(255, 255, 255);
   border-radius: 20px;
   transition: all 0.4s ease;
@@ -76,7 +76,7 @@
   color: rgb(0, 0, 0);
   border-color: rgb(9, 255, 0);
   transform: scale(1.08);
-  font-size: 16px;
+  font-size: 13px;
   padding: 8px 18px 8px 18px;
  box-shadow: 1px 1px 30px rgb(9, 255, 0);
 }
@@ -90,8 +90,13 @@
 
 .logout-button:hover{
   background-color: rgb(255, 0, 0);
-   box-shadow: 1px 1px 30px rgb(255, 0, 0);
-padding: 13px 3px 13px 3px;
+  box-shadow: 1px 1px 30px rgb(255, 0, 0);
+  padding: 13px 3px 13px 3px;
   color: #fff;
 
+}
+
+.btn-recebidas:hover{
+  box-shadow: 1px 1px 30px rgb(208, 255, 0);
+  font-size: 16px;
 }
