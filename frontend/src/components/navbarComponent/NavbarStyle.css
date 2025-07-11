@@ -48,6 +48,7 @@
   font-weight: 500;
   transition: color 0.3s ease, transform 0.3s ease;
   transition: all 0.4s ease;
+  cursor: pointer;
 }
 
 .navbar-links a:hover {
@@ -62,30 +63,12 @@
   
 }
 
-/* Botão criar conta com borda */
-.btn-message, .btn-recebidas {
-  border: 2px solid rgb(255, 255, 255);
-  border-radius: 20px;
-  transition: all 0.4s ease;
-  padding: 4px 10px 4px 10px;
-
-}
-
-.btn-message:hover {
-  background-color: white;
-  color: rgb(0, 0, 0);
-  border-color: rgb(9, 255, 0);
-  transform: scale(1.08);
-  font-size: 13px;
-  padding: 8px 18px 8px 18px;
- box-shadow: 1px 1px 30px rgb(9, 255, 0);
-}
 
 .logout-button{
   border-radius: 20px;
   padding: 4px 10px 4px 10px;
   transition: all 0.4s ease;
-
+  cursor: help;
 }
 
 .logout-button:hover{

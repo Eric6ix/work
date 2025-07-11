@@ -1,21 +1,17 @@
-import styles from './MessagesModalStyle.css';
+// src/components/modal/messagesModal/MessagesModal.jsx
+import Modal from '../Modal'; // Caminho relativo
+import './MessagesModalStyle.css';
 
-const Modal = ({ isOpen, onClose, title, children }) => {
-  if (!isOpen) return null;
-
+const MessagesModal = ({ onClose }) => {
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
-        <div className={styles.header}>
-          <h2>{title}</h2>
-          <button onClick={onClose} className={styles.closeBtn}>×</button>
-        </div>
-        <div className={styles.content}>
-          {children}
-        </div>
-      </div>
-    </div>
+    <Modal isOpen={true} onClose={onClose} title="Mensagens Recebidas">
+      <ul>
+        <li>Mensagem 1</li>
+        <li>Mensagem 2</li>
+        <li>Mensagem 3</li>
+      </ul>
+    </Modal>
   );
 };
 
-export default Modal;
+export default MessagesModal;

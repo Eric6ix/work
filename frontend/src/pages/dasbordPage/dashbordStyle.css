@@ -38,6 +38,7 @@
   text-align: center;
   transition: color 3.6s ease, transform 3.6s ease;
   transition: all 1.5s ease;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -74,6 +75,7 @@
   min-width: 300px;
   transition: all 1.5s ease;
   font-size: 19px;
+  cursor: pointer;
 }
 
 .buttonDH:hover{
