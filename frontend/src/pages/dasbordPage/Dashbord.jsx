@@ -6,7 +6,7 @@ import { MessagesModal, SendMessageModal } from '../../components/base';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
-  const [userRole , setUserRole] = useState('admin0'); // valor padrão
+  const [userRole , setUserRole] = useState('admin'); // valor padrão
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [showSendModal, setShowSendModal] = useState(false);
 
@@ -42,9 +42,10 @@ const Dashboard = () => {
               <h2>👥 Usuários</h2>
               <p>15 cadastrados</p>
             </Link>
-            <button className="buttonDH" onClick={() => setShowSendModal(true)}>
-            📤 Enviar mensagem
-          </button>
+            <Link onClick={() => setShowSendModal(true)} className="card shadow card-button link-sem-decoracao">
+              <h2>📤 Enviar mensagem</h2>
+              <p>Selecione e envie mensagem</p>
+            </Link>
           </section>
         )}
 

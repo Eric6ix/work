@@ -9,6 +9,9 @@
 .link-sem-decoracao {
   text-decoration: none;
   color: white;
+  & p{
+    color: rgb(155, 153, 153);
+  }
 }
 
 .dashboard-header h1 {

@@ -1,6 +1,5 @@
 // src/components/modal/messagesModal/MessagesModal.jsx
 import Modal from '../Modal'; // Caminho relativo
-import './MessagesModalStyle.css';
 
 const MessagesModal = ({ onClose }) => {
   return (
