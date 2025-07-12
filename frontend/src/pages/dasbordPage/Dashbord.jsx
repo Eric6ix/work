@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Navbar from "../../components/navbarComponent";
 import "./dashbordStyle.css";
 import "../../globals.css";
-import { MessagesModal, SendMessageModal } from '../../components/modal';
+import { MessagesModal, SendMessageModal } from '../../components/base';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -42,6 +42,9 @@ const Dashboard = () => {
               <h2>👥 Usuários</h2>
               <p>15 cadastrados</p>
             </Link>
+            <button className="buttonDH" onClick={() => setShowSendModal(true)}>
+            📤 Enviar mensagem
+          </button>
           </section>
         )}
 
@@ -55,10 +58,11 @@ const Dashboard = () => {
           <button className="buttonDH" onClick={() => setShowMessageModal(true)}>
             📥 Mensagens recebidas
           </button>
-          <button className="buttonDH" onClick={() => setShowSendModal(true)}>
-            📤 Enviar mensagem
-          </button>
-          <div className="placeholder">Em breve...</div>
+          
+          <div className="placeholder">
+            <h1>Breve...</h1>
+            <p>Em desenvolvimento</p>
+          </div>
         </section>
 
         {/* Modais */}
